@@ -33,13 +33,13 @@ public class EmployeeVacationDataDto {
     private LocalDate startOfVacation;
 
     @NotNull
-    @Schema(description = "Дата последнего дня отпуска", example = "2025-04-18",
+    @Schema(description = "Дата выхода из отпуска", example = "2025-04-18",
             requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private LocalDate endOfVacation;
 
     @JsonIgnore
     @AssertTrue(message = "Start of vacation must be before the end of vacation")
-    public boolean datesAreValid() {
+    public boolean isDateOrderValid() {
         return startOfVacation.isBefore(endOfVacation);
     }
 }

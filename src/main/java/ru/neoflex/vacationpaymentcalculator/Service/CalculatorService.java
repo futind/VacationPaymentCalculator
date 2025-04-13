@@ -67,7 +67,7 @@ public class CalculatorService implements ICalculatorService {
                                                                                 2, RoundingMode.HALF_UP);
 
         long vacationLength = ChronoUnit.DAYS.between(vacationDataDto.getStartOfVacation(),
-                                                      vacationDataDto.getEndOfVacation()) + 1 -
+                                                      vacationDataDto.getEndOfVacation()) -
                               countUnpaidDays(vacationDataDto.getStartOfVacation(),
                                                 vacationDataDto.getEndOfVacation());
 
@@ -86,7 +86,7 @@ public class CalculatorService implements ICalculatorService {
      */
     private long countUnpaidDays(LocalDate startDate, LocalDate endDate) {
         return IntStream.iterate(0, i -> i + 1)
-                .limit(ChronoUnit.DAYS.between(startDate, endDate) + 1)
+                .limit(ChronoUnit.DAYS.between(startDate, endDate))
                 .mapToObj(startDate::plusDays)
                 .filter(x -> isWeekend(x) || isHoliday(x))
                 .count();
