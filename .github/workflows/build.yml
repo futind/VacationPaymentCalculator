@@ -38,7 +38,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build project
-        run: mvn clean verify -DskipTests
+        run: mvn clean verify
 
       - name: Run SonarQube analysis
         env:
