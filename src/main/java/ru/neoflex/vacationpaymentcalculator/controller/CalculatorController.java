@@ -1,4 +1,4 @@
-package ru.neoflex.vacationpaymentcalculator.Controller;
+package ru.neoflex.vacationpaymentcalculator.controller;
 
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.neoflex.vacationpaymentcalculator.Dto.EmployeeVacationDataDto;
-import ru.neoflex.vacationpaymentcalculator.Service.ICalculatorService;
+import ru.neoflex.vacationpaymentcalculator.dto.EmployeeVacationDataDto;
+import ru.neoflex.vacationpaymentcalculator.service.ICalculatorService;
 
 import java.math.BigDecimal;
 

@@ -1,22 +1,19 @@
-package ru.neoflex.vacationpaymentcalculator.Service;
+package ru.neoflex.vacationpaymentcalculator.service;
 
 import jdk.jfr.Description;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions.*;
 import org.springframework.boot.test.context.SpringBootTest;
-import ru.neoflex.vacationpaymentcalculator.Dto.EmployeeVacationDataDto;
+import ru.neoflex.vacationpaymentcalculator.dto.EmployeeVacationDataDto;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-public class CalculatorServiceTests {
+class CalculatorServiceTests {
 
     private static final BigDecimal AVERAGE_CALENDAR_DAYS_PER_MONTH = BigDecimal.valueOf(29.3);
 
@@ -84,5 +81,33 @@ public class CalculatorServiceTests {
                 .endOfVacation(endDate)
                 .build();
         BigDecimal result = calculatorService.calculate(vacationDataDto);
+
+        assertTrue((taxedVacationPay.subtract(result)).abs().compareTo(BigDecimal.valueOf(0.01)) < 0);
+    }
+
+    @Test
+    @Description("Test which indicates that progressive tax rate is being used when needed")
+    void appliesProgressiveTaxRate() {
+        BigDecimal yearlyPay = PROGRESSIVE_TAXING_THRESHOLD.add(BigDecimal.ONE);
+
+        LocalDate startDate = LocalDate.of(2025, 4, 1);
+        LocalDate endDate = LocalDate.of(2025, 4, 15);
+
+        // dailyPay = yearlyPay / AVERAGE_CALENDAR_DAYS_PER_YEAR
+        BigDecimal dailyPay = yearlyPay.divide(AVERAGE_CALENDAR_DAYS_PER_YEAR, 2, RoundingMode.HALF_UP);
+
+        // vacationPay = dailyPay * (10)
+        BigDecimal vacationPay = dailyPay.multiply(BigDecimal.valueOf(10));
+        // apply progressive tax rate
+        BigDecimal taxedVacationPay = vacationPay.multiply(BigDecimal.ONE.subtract(PROGRESSIVE_TAX_RATE));
+
+        EmployeeVacationDataDto vacationDataDto = EmployeeVacationDataDto.builder()
+                .yearlyPay(yearlyPay)
+                .startOfVacation(startDate)
+                .endOfVacation(endDate)
+                .build();
+        BigDecimal result = calculatorService.calculate(vacationDataDto);
+
+        assertTrue((taxedVacationPay.subtract(result)).abs().compareTo(BigDecimal.valueOf(0.01)) < 0);
     }
 }

@@ -1,10 +1,10 @@
-package ru.neoflex.vacationpaymentcalculator.Service;
+package ru.neoflex.vacationpaymentcalculator.service;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.neoflex.vacationpaymentcalculator.Dto.EmployeeVacationDataDto;
+import ru.neoflex.vacationpaymentcalculator.dto.EmployeeVacationDataDto;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -58,7 +58,6 @@ public class CalculatorService implements ICalculatorService {
                                                                 );
 
     @Override
-    @GetMapping("/calculate")
     public BigDecimal calculate(EmployeeVacationDataDto vacationDataDto) {
         BigDecimal taxRate = vacationDataDto.getYearlyPay()
                          .compareTo(PROGRESSIVE_TAXING_THRESHOLD) >= 0 ? PROGRESSIVE_TAX_RATE : DEFAULT_TAX_RATE;

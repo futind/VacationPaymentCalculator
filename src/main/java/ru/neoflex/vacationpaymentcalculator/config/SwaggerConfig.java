@@ -1,4 +1,4 @@
-package ru.neoflex.vacationpaymentcalculator.Config;
+package ru.neoflex.vacationpaymentcalculator.config;
 
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
