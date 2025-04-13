@@ -1,4 +1,4 @@
-package ru.neoflex.vacationpaymentcalculator.Dto;
+package ru.neoflex.vacationpaymentcalculator.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;

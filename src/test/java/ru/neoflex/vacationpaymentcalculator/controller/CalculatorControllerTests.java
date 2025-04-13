@@ -1,25 +1,19 @@
-package ru.neoflex.vacationpaymentcalculator.Controller;
+package ru.neoflex.vacationpaymentcalculator.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.assertj.MockMvcTester;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import ru.neoflex.vacationpaymentcalculator.Dto.EmployeeVacationDataDto;
-import ru.neoflex.vacationpaymentcalculator.Service.ICalculatorService;
+import ru.neoflex.vacationpaymentcalculator.dto.EmployeeVacationDataDto;
+import ru.neoflex.vacationpaymentcalculator.service.ICalculatorService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -30,7 +24,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
-public class CalculatorControllerTests {
+class CalculatorControllerTests {
 
     @Mock
     ICalculatorService calculatorService;
